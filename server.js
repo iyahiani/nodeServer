@@ -1,8 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser"); /* deprecated */
-const cors = require("cors");
 const app = express();
-const user = require("./app/sequelizer/user.model");
 const crudSeq = require("./app/sequelizer/user.service")
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
