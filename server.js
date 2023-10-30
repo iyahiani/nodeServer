@@ -28,7 +28,12 @@ app.get("/", (req, res) => {
 app.post("/user", (req, res) => {
   //res.json({ message: "Welcome to bezkoder application.post" });
   if(req.body){
-    crudSeq.create(user);
+    crudSeq.create(req.body).then(function(err,data){
+      if (err){
+        throw  err ;
+      }
+      res.json(data);
+    });
   }
 
   //res.sendFile('index.html',{root:__dirname})

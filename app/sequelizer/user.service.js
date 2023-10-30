@@ -20,13 +20,13 @@ async function getById(id) {
 
 async function create(params) {
     // validate
-    console.log("creation")
-    if (await db.User.findOne({ where: { email: params.email } })) {
+    /*
+    console.log("creation user")
+    /*if (await db.User.findOne({ where: { email: params.email } })) {
         throw 'Email "' + params.email + '" is already registered';
-    }
+    }*/
 
-    const user = new db.User(params);
-
+    const user = new db.user(params);
     // hash password
     user.passwordHash = await bcrypt.hash(params.password, 10);
 

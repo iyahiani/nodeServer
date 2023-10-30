@@ -27,5 +27,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('User', attributes, options);
+    return sequelize.define('users', attributes, options);
 }
