@@ -31,7 +31,7 @@ async function create(params) {
     user.passwordHash = await bcrypt.hash(params.password, 10);
 
     // save user
-    await user.save();
+    return await user.save();
 }
 
 async function update(id, params) {

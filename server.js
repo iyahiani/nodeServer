@@ -7,6 +7,7 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(process.cwd() + "nodejs-express-mysql"));
 app.use((req, res, next) => {
   res.header("Content-Type", "application/json; charset=utf-8","x-access-token");
   res.header("Content-Type: application/json");
@@ -22,15 +23,16 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application.get" });
    //res.sendFile('index.html',{root:__dirname})
 });
- app.use(express.static(process.cwd() + "nodejs-express-mysql"));
+
 app.post("/user", (req, res) => {
   //res.json({ message: "Welcome to bezkoder application.post" });
   if(req.body){
-    crudSeq.create(req.body).then(function(err,data){
-      if (err){
-        throw  err ;
+    crudSeq.create(req.body).then(function(data){
+      console.log("response"+ data);
+      if (data) {
+        res.status(200);
+        res.json({message:"utilisateur créé avec succès"});
       }
-      res.json(data);
     });
   }
 
