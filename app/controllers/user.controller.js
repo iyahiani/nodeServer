@@ -21,8 +21,11 @@ exports.create = (req, res) => {
                     err.message || "Some error occurred while creating the user."
             });
 
+        } else {
+            console.log(data);
+           res.send(data);
         }
-        else res.send(data);
+
 
     });
 };

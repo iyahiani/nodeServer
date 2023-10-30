@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser"); /* deprecated */
 const cors = require("cors");
 const app = express();
-const user = require("./app/controllers/user.controller.js");
+const user = require("./app/sequelizer/user.model");
+const crudSeq = require("./app/sequelizer/user.service")
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
@@ -27,7 +28,7 @@ app.get("/", (req, res) => {
 app.post("/user", (req, res) => {
   //res.json({ message: "Welcome to bezkoder application.post" });
   if(req.body){
-    user.create(req,res);
+    crudSeq.create(user);
   }
 
   //res.sendFile('index.html',{root:__dirname})

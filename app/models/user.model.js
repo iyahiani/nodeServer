@@ -1,3 +1,4 @@
+
 const connection = require("./db");
 const pool = require("../config/pool.config")
 const User = function(user) {
@@ -26,5 +27,6 @@ User.create = (users, result) => {
 
 };
 
-User.findByName = (users,re)
 module.exports = User;
+
+
