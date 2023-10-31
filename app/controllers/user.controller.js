@@ -11,7 +11,9 @@ exports.create = (req, res) => {
     // Create a Tutorial
     const user = new User({
         login: req.body.login,
-        password: req.body.password
+        password: req.body.password,
+        email: req.body.email,
+        role: req.body.role
     });
     // Save Tutorial in the database
     User.create(user, (err, data) => {
@@ -22,7 +24,7 @@ exports.create = (req, res) => {
             });
 
         } else {
-            console.log(data);
+            console.log("data"+data);
            res.send(data);
         }
 

@@ -20,18 +20,23 @@ async function getById(id) {
 
 async function create(params) {
     // validate
-    /*
-    console.log("creation user")
-    /*if (await db.User.findOne({ where: { email: params.email } })) {
-        throw 'Email "' + params.email + '" is already registered';
-    }*/
+    var message = {};
+    if (await db.user.findOne({ where: { email: params.email } })) {
+        return  {
+            message : ('login "' + params.login + '" existe dèjà'),
+            status : 202
+        }
 
+    }
     const user = new db.user(params);
     // hash password
     user.passwordHash = await bcrypt.hash(params.password, 10);
-
     // save user
-    return await user.save();
+     await user.save();
+    return {
+        message : ('login "' + params.login + '" est enregistré avec succés'),
+        status : 200
+    }
 }
 
 async function update(id, params) {
@@ -40,6 +45,7 @@ async function update(id, params) {
     // validate
     const usernameChanged = params.username && user.username !== params.username;
     if (usernameChanged && await db.User.findOne({ where: { username: params.username } })) {
+        //console.log(await db.User.findOne({ where: { username: params.username } }));
         throw 'Username "' + params.username + '" is already taken';
     }
 

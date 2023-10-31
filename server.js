@@ -27,11 +27,12 @@ app.get("/", (req, res) => {
 app.post("/user", (req, res) => {
   //res.json({ message: "Welcome to bezkoder application.post" });
   if(req.body){
+    //  console.log("req.body"+ req.body);
     crudSeq.create(req.body).then(function(data){
       console.log("response"+ data);
       if (data) {
-        res.status(200);
-        res.json({message:"utilisateur créé avec succès"});
+        res.status(data.status);
+        res.json(data);
       }
     });
   }
