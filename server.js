@@ -19,9 +19,11 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
   next();
 });
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application.get" });
-   //res.sendFile('index.html',{root:__dirname})
+app.get("/user", (req, res) => {
+  console.log("req"+ req.body)
+  if(req.body){
+
+  }
 });
 
 app.post("/user", (req, res) => {
