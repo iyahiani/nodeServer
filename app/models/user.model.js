@@ -1,5 +1,4 @@
 
-const connection = require("./db");
 const pool = require("../config/pool.config")
 const User = function(user) {
     this.login = user.login;
@@ -22,7 +21,7 @@ User.create = (users, result) => {
             return result(err);
 
         }
-        console.log("created user: ", { id: res.insertId, ...users });
+
 
         return (result);
     });

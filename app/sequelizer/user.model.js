@@ -1,11 +1,11 @@
 //// SEQUELIZE
-const { DataTypes } = require('sequelize');
+const { DataTypes} = require('sequelize');
 
 module.exports = model;
 
 function model(sequelize) {
-    const attributes = {
-        idUser : {
+        const attributes = {
+            idUser : {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -17,10 +17,10 @@ function model(sequelize) {
     };
 
     const options = {
-        defaultScope: {
+        /*defaultScope: {
             // exclude password hash by default
             attributes: { exclude: ['passwordHash'] }
-        },
+        },*/
         scopes: {
             // include hash with this scope
             withHash: { attributes: {}, }

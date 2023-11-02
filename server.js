@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser"); /* deprecated */
 const app = express();
-const crudSeq = require("./app/sequelizer/user.service")
+const crudSeq = require("./app/sequelizer/user.service");
+const authent = require("./app/sequelizer/authent")
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
@@ -10,7 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(process.cwd() + "nodejs-express-mysql"));
 app.use((req, res, next) => {
   res.header("Content-Type", "application/json; charset=utf-8","x-access-token");
-  res.header("Content-Type: application/json");
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
       "Access-Control-Allow-Headers",
@@ -19,24 +19,19 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
   next();
 });
-app.get("/user", (req, res) => {
-  console.log("req"+ req.body)
-  if(req.body){
+app.get("/user", (req,res) => {
 
-  }
 });
 
-app.post("/user", (req, res) => {
+app.post("/user/login", (req, res) => {
+  authent.authentification(req, res)
+});
+//// Login
+app.post("/user/create", (req, res) => {
   //res.json({ message: "Welcome to bezkoder application.post" });
   if(req.body){
     //  console.log("req.body"+ req.body);
-    crudSeq.create(req.body).then(function(data){
-      console.log("response"+ data);
-      if (data) {
-        res.status(data.status);
-        res.json(data);
-      }
-    });
+    crudSeq.create(req.body,res);
   }
 
   //res.sendFile('index.html',{root:__dirname})

@@ -24,7 +24,6 @@ exports.create = (req, res) => {
             });
 
         } else {
-            console.log("data"+data);
            res.send(data);
         }
 

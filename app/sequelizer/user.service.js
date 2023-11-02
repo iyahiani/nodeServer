@@ -5,6 +5,7 @@ const db = require('../sequelizer/initDB');
 module.exports = {
     getAll,
     getById,
+    getUserByEmail,
     create,
     update,
     delete: _delete
@@ -14,29 +15,33 @@ async function getAll() {
     return await db.User.findAll();
 }
 
-async function getById(id) {
-    return await getUser(id);
+async function getById(email) {
+
+    if (await getUser(email)){
+        return {
+            status : 200,
+            data: id
+        }
+    };
 }
 
-async function create(params) {
-    // validate
-    var message = {};
-    if (await db.user.findOne({ where: { email: params.email } })) {
-        return  {
-            message : ('login "' + params.login + '" existe dèjà'),
-            status : 202
+async function create(params,res) {
+    // valida
+    await db.users.findOne({ where: { email: params.email } }).then(async user => {
+        if (user) {
+            return res.status(202).json({
+                message:
+                    "l'utilisateur existe deja"
+            });
         }
+        const pass = await db.users.build(params);
+        await pass.update({passwordHash: bcrypt.hashSync(params.password, 10)});
+         //pass = db.users.build({passwordHash: bcrypt.hash(params.password, 10)});
+        await pass.save();
+        return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
+    })
 
-    }
-    const user = new db.user(params);
-    // hash password
-    user.passwordHash = await bcrypt.hash(params.password, 10);
-    // save user
-     await user.save();
-    return {
-        message : ('login "' + params.login + '" est enregistré avec succés'),
-        status : 200
-    }
+
 }
 
 async function update(id, params) {
@@ -66,8 +71,23 @@ async function _delete(id) {
 
 // helper functions
 
-async function getUser(id) {
-    const user = await db.User.findByPk(id);
+async function getUser(user) {
+    //const user = getUserByEmail(user.em)
+    await db.user.findByPk(idUser);
     if (!user) throw 'User not found';
     return user;
 }
+ async function getUserByEmail(params) {
+
+     if(await db.user.findOne({where: {email: params}})){
+         return {
+             status: 200,
+             message: user
+         }
+     } else {
+         return {
+             status: 202,
+             message: "l'utilisateur n'existe pas"
+         }
+     }
+ }
