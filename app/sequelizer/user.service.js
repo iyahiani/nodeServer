@@ -36,7 +36,6 @@ async function create(params,res) {
         }
         const pass = await db.users.build(params);
         await pass.update({passwordHash: bcrypt.hashSync(params.password, 10)});
-         //pass = db.users.build({passwordHash: bcrypt.hash(params.password, 10)});
         await pass.save();
         return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
     })

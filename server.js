@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser"); /* deprecated */
 const app = express();
 const crudSeq = require("./app/sequelizer/user.service");
-const authent = require("./app/sequelizer/authent")
+const authent = require("./app/sequelizer/authent");
+require('dotenv').config();
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
@@ -20,7 +21,6 @@ app.use((req, res, next) => {
   next();
 });
 app.get("/user", (req,res) => {
-
 });
 
 app.post("/user/login", (req, res) => {
@@ -28,15 +28,10 @@ app.post("/user/login", (req, res) => {
 });
 //// Login
 app.post("/user/create", (req, res) => {
-  //res.json({ message: "Welcome to bezkoder application.post" });
   if(req.body){
-    //  console.log("req.body"+ req.body);
     crudSeq.create(req.body,res);
   }
-
-  //res.sendFile('index.html',{root:__dirname})
 });
-//app.post('/user',user.create)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;

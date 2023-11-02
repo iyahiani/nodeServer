@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const db = require('../sequelizer/initDB');
-const secret = require("../config/secretClient");
 const jwt = require('jsonwebtoken');
 
 exports.authentification = (req, res, next) => {
@@ -11,16 +10,13 @@ exports.authentification = (req, res, next) => {
         },
     })
         .then(user => {
-            for (let i = 0; i < user.length; i++)  {
-                console.log("row"+i+ user[i].dataValues);
-            }
+
             if (!user) {
                 return res.status(401).json({
                     message:
-                        "Auth failed!! either the account does't exist or you entered a wrong account"
+                        "Login/mdp incorrect ou compte innexistant"
                 });
             }
-            console.log(user);
             bcrypt.compare(req.body.password, user.passwordHash, (err, result) => {
 
                 if (err) {
@@ -29,18 +25,18 @@ exports.authentification = (req, res, next) => {
                     });
                 }
                 if (result) {
+                    console.log(process.env);
                     const token = jwt.sign(
                         {
                             email: user.email,
-                            password: user.id
+                            idUser: user.idUser
                         },
-                        secret
+                        `${process.env.SECRET_KEY}`
                         ,
                         {
                             expiresIn: "1h"
                         }
                     );
-
                     res.status(200).json({
                         message: "Auth granted, welcome!",
                         token: token
