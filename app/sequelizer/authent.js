@@ -25,7 +25,7 @@ exports.authentification = (req, res, next) => {
                     });
                 }
                 if (result) {
-                    console.log(process.env);
+
                     const token = jwt.sign(
                         {
                             email: user.email,

@@ -17,7 +17,6 @@ User.create = (users, result) => {
     pool.query('INSERT INTO users SET ?', user, (err, res) => {
         //sql.release();
         if (err) {
-            console.log("error: ", err);
             return result(err);
 
         }
