@@ -20,7 +20,7 @@ exports.authentification = (req, res, next) => {
             bcrypt.compare(req.body.password, user.passwordHash, (err, result) => {
 
                 if (err) {
-                    return res.status(203).json({
+                    return res.status(401).json({
                         message: "Auth failed"
                     });
                 }
