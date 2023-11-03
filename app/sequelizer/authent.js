@@ -39,7 +39,9 @@ exports.authentification = (req, res, next) => {
                     );
                     res.status(200).json({
                         message: "Auth granted, welcome!",
-                        token: token
+                        token: token,
+                        roles:['ROLE_ADMIN','ROLE_MODERATOR'],
+                        login: user.login
                     });
                 }
             });
