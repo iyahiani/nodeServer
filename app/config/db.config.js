@@ -1,5 +1,5 @@
 module.exports = {
-  host: "109.106.244.164",
+  host: "88.127.119.39",
   user: "u417867344_root",
   password: "Enia@122020",
   database: "u417867344_root",
