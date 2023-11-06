@@ -1,8 +1,8 @@
 module.exports = {
-  host: "88.127.119.39",
-  user: "u417867344_root",
+  host: "109.106.244.164",
+  user: "u417867344_com",
   password: "Enia@122020",
-  database: "u417867344_root",
+  database: "u417867344_com",
   dialect:"mysql",
   port: 3306,
   connectionLimit: 10,

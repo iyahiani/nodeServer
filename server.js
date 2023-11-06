@@ -5,7 +5,7 @@ const crudSeq = require("./app/sequelizer/user.service");
 const authent = require("./app/sequelizer/authent");
 const cors = require("cors");
 const corsOptions ={
-  origin:['http://localhost:4001','http://localhost:4200','https://109.106.244.164','https://45.87.81.120'],
+  origin:['http://localhost:4001','http://localhost:4200','http://109.106.244.164','https://45.87.81.120','https://109.106.244.164'],
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
