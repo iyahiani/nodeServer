@@ -1,32 +1,74 @@
-const User = require("../models/user.model.js");
-const connection  = require("../models/db");
+
+const bcrypt = require("bcryptjs");
+const db =require("../models");
+const User = db.user;
 exports.create = (req, res) => {
     // Validate request
+
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
     }
-
     // Create a Tutorial
-    const user = new User({
-        login: req.body.login,
-        password: req.body.password,
-        email: req.body.email,
-        role: req.body.role
-    });
-    // Save Tutorial in the database
-    User.create(user, (err, data) => {
-        if (err) {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the user."
-            });
 
-        } else {
-           res.send(data);
+
+    // Save User in the database
+        /*for (const [key, value] of Object.entries(data)) {
+                console.log(`${key}: ${value}`);
+            }*/
+    User.findOne({ where: { email: req.body.email} }).then(async user => {
+        if (user) {
+            return res.status(202).json({
+                message:
+                    "l'utilisateur existe deja"
+            });
+        }else {
+            const user ={
+                username: req.body.username,
+                password: req.body.password,
+                email: req.body.email,
+                role: req.body.role
+            };
+            const pass = await User.build(user);
+            await pass.update({password: bcrypt.hashSync(user.password, 10)});
+            await pass.save();
+            return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
         }
 
+    });
+};
+
+// Retrieve all Tutorials from the database.
+exports.findAll = (req, res) => {
+};
+
+// Find a single Tutorial with an id
+exports.findOne = (req, res) => {
+    const email =  req.body.email;
+    User.findOne({ where: { email: params.email } }).then(async user => {
+        if (user) {
+            return res.status(202).json({
+                message:
+                    "l'utilisateur existe deja"
+            });
+        }
+        return res.status(200);
 
     });
+};
+
+// Update a Tutorial by the id in the request
+exports.update = (req, res) => {
+
+};
+
+// Delete a Tutorial with the specified id in the request
+exports.delete = (req, res) => {
+
+};
+
+// Delete all Tutorials from the database.
+exports.deleteAll = (req, res) => {
+
 };

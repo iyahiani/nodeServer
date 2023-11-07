@@ -1,32 +1,17 @@
+//// SEQUELIZE
 
-const pool = require("../config/pool.config")
-const User = function(user) {
-    this.login = user.login;
-    this.password = user.password;
-    this.email = user.email;
-    this.role = user.role;
-};
-
-User.create = (users, result) => {
-    var user = {
-        "login": users.login,
-        "password": users.password,
-        "email": users.email,
-        "role": 'user'
-    };
-    pool.query('INSERT INTO users SET ?', user, (err, res) => {
-        //sql.release();
-        if (err) {
-            return result(err);
-
-        }
-
-
-        return (result);
+const {DataTypes} = require("sequelize");
+module.exports = (sequelize, Sequelize)=>{
+    return sequelize.define('users', {
+        idUser: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        email: {type: DataTypes.STRING, allowNull: true},
+        password: {type: DataTypes.STRING, allowNull: false},
+        username: {type: DataTypes.STRING, allowNull: false},
+    },{
+        timestamps: false
     });
-
-};
-
-module.exports = User;
-
-
+}

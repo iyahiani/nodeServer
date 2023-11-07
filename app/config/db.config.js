@@ -1,15 +1,17 @@
 module.exports = {
-  host: "109.106.244.164",
-  user: "u417867344_com",
+  host: "193.203.168.3",
+  user: "u417867344_root",
   password: "Enia@122020",
-  database: "u417867344_com",
+  database: "u417867344_ecom",
   dialect:"mysql",
-  port: 3306,
   connectionLimit: 10,
   debug: false,
+  port: 3306,
   pool: {
-    max: 1000000,
-    idle: 3000000,
-    acquireTimeout: 6000000
+    max: 15,
+    min: 5,
+    idle: 20000,
+    evict: 15000,
+    acquire: 30000
   }
 };

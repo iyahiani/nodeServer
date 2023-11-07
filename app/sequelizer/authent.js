@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const db = require('../sequelizer/initDB');
+const db = require('../models/');
 const jwt = require('jsonwebtoken');
 
 exports.authentification = (req, res, next) => {
