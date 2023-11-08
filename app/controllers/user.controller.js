@@ -17,7 +17,8 @@ exports.create = (req, res) => {
                     "l'utilisateur existe deja"
             });
         }else {
-            const user ={
+            let user = {};
+                  user ={
                 username: req.body.username,
                 password: req.body.password,
                 email: req.body.email,
