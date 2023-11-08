@@ -1,10 +1,10 @@
 const bcrypt = require('bcryptjs');
-const db = require('../models/');
 const jwt = require('jsonwebtoken');
-
+const db =require("../models");
+const User = db.user;
 exports.authentification = (req, res, next) => {
 
-    db.users.findOne({
+    User.findOne({
         where: {
             email: req.body.email
         },
@@ -17,7 +17,10 @@ exports.authentification = (req, res, next) => {
                         "Login/mdp incorrect ou compte innexistant"
                 });
             }
-            bcrypt.compare(req.body.password, user.passwordHash, (err, result) => {
+            console.log("req.body.password "+ req.body.password +"\n");
+            console.log("user.password"+ user.password +"\n");
+
+            bcrypt.compare(user.password, req.body.password,  (err, result) => {
 
                 if (err) {
                     return res.status(401).json({
@@ -25,7 +28,6 @@ exports.authentification = (req, res, next) => {
                     });
                 }
                 if (result) {
-
                     const token = jwt.sign(
                         {
                             email: user.email,
@@ -37,13 +39,13 @@ exports.authentification = (req, res, next) => {
                             expiresIn: "1h"
                         }
                     );
-                    res.status(200).json({
+                    return res.status(200).json({
                         message: "Auth granted, welcome!",
                         token: token,
                         roles:['ROLE_ADMIN','ROLE_MODERATOR'],
                         login: user.login
                     });
-                }
+                } return res.status(300).json({message : err});
             });
         })
         .catch(err => {

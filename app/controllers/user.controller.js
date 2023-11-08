@@ -10,13 +10,6 @@ exports.create = (req, res) => {
             message: "Content can not be empty!"
         });
     }
-    // Create a Tutorial
-
-
-    // Save User in the database
-        /*for (const [key, value] of Object.entries(data)) {
-                console.log(`${key}: ${value}`);
-            }*/
     User.findOne({ where: { email: req.body.email} }).then(async user => {
         if (user) {
             return res.status(202).json({
@@ -31,7 +24,7 @@ exports.create = (req, res) => {
                 role: req.body.role
             };
             const pass = await User.build(user);
-            await pass.update({password: bcrypt.hashSync(user.password, 10)});
+            await pass.update({password: bcrypt.hash(user.password, 10)});
             await pass.save();
             return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
         }

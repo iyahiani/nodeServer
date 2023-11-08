@@ -27,14 +27,15 @@ app.use(cors(corsOptions));
 app.get("/", (req,res) => {
   res.json({message : "node connected"});
 });
-app.get("/user", (req,res) => {
+app.get("/api", (req,res) => {
+
 });
 
-app.post("/user/login", (req, res) => {
+app.post("/api/login", (req, res) => {
   authent.authentification(req, res)
 });
 //// Login
-app.post("/user/create", (req, res) => {
+app.post("/api/create", (req, res) => {
   if(req.body){
     crudSeq.create(req,res);
   }
