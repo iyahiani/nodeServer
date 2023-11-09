@@ -44,7 +44,8 @@ app.get('/api/create', function (req, res) {
     res.sendFile(__dirname + '/ecom/dist');
 });
 app.post("/api/create", (req, res) => {
-  if(req.body){
+  req.getFile(__dirname + '/ecom/dist');
+    if(req.body){
     crudSeq.create(req,res);
   }
 });
