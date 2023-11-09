@@ -66,6 +66,9 @@ const server = http.createServer((req, res) => {
   }
 });
 // fin test
-app.listen(PORT, () => {
+/*app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
+});*/
+server.listen(3000, "localhost", () => {
+  console.log("Listening for request");
 });
