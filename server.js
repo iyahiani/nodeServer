@@ -27,7 +27,12 @@ app.use((req, res, next) => {
 });
 app.use(cors(corsOptions));
 app.get("/api", (req,res) => {
-
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(
+      JSON.stringify({
+        product_id: "xyz12u3",
+        product_name: "NginX injector",
+      }));
 });
 
 app.post("/api/login", (req, res) => {
