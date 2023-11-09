@@ -7,7 +7,7 @@ const cors = require("cors");
 const {static} = require("express");
 const os = require('os');
 const corsOptions ={
-  origin:['http://localhost:4001','http://localhost:4000','http://localhost:4200','http://109.106.244.164','http://62.72.37.52'],
+  origin:['http://localhost:4001','http://localhost:4000'],
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 };
@@ -39,6 +39,10 @@ app.post("/api/login", (req, res) => {
   authent.authentification(req, res)
 });
 //// Login
+app.get('/api/create', function (req, res) {
+    // 👇️ if your HTML file is in the root directory (next to package.json)
+    res.sendFile(__dirname + '/index.html');
+});
 app.post("/api/create", (req, res) => {
   if(req.body){
     crudSeq.create(req,res);
