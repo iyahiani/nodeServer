@@ -41,7 +41,7 @@ app.post("/api/login", (req, res) => {
 //// Login
 app.get('/api/create', function (req, res) {
     // 👇️ if your HTML file is in the root directory (next to package.json)
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/ecom/dist');
 });
 app.post("/api/create", (req, res) => {
   if(req.body){
