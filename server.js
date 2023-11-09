@@ -47,6 +47,25 @@ app.post("/api/create", (req, res) => {
 app.use(express.static(__dirname +'/ecom/dist'));
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;
+
+//test
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  const urlPath = req.url;
+   if (urlPath === "/api") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(
+        JSON.stringify({
+          product_id: "xyz12u3",
+          product_name: "NginX injector",
+        })
+    );
+  } else {
+    res.end("Successfully started a server");
+  }
+});
+// fin test
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
