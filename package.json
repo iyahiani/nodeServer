@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.2",
+    "os": "^0.1.2",
     "sequelize": "^6.33.0"
   },
   "devDependencies": {

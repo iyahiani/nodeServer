@@ -5,13 +5,14 @@ const crudSeq = require("./app/controllers/user.controller");
 const authent = require("./app/sequelizer/authent");
 const cors = require("cors");
 const {static} = require("express");
+const os = require('os');
 const corsOptions ={
   origin:['http://localhost:4001','http://localhost:4000','http://localhost:4200','http://109.106.244.164','http://62.72.37.52'],
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 };
 
-
+console.log(os.hostname());
 
 require('dotenv').config();
 // parse requests of content-type - application/json
