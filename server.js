@@ -4,6 +4,7 @@ const app = express();
 const crudSeq = require("./app/controllers/user.controller");
 const authent = require("./app/sequelizer/authent");
 const cors = require("cors");
+const {static} = require("express");
 const corsOptions ={
   origin:['http://localhost:4001','http://localhost:4000','http://localhost:4200','http://109.106.244.164','http://62.72.37.52'],
   credentials:true,            //access-control-allow-credentials:true
@@ -24,9 +25,6 @@ app.use((req, res, next) => {
   next();
 });
 app.use(cors(corsOptions));
-app.get("/", (req,res) => {
-  res.json({message : "node connected"});
-});
 app.get("/api", (req,res) => {
 
 });
@@ -40,7 +38,7 @@ app.post("/api/create", (req, res) => {
     crudSeq.create(req,res);
   }
 });
-
+app.use(express.static(__dirname +'/ecom/dist'));
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
