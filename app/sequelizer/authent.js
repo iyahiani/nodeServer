@@ -12,7 +12,7 @@ exports.authentification = (req, res, next) => {
         .then(user => {
 
             if (!user) {
-                return res.status(401).json({
+                return res.status(302).json({
                     message:
                         "Login/mdp incorrect ou compte innexistant"
                 });
