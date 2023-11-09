@@ -65,7 +65,8 @@ const server = http.createServer((req, res) => {
     res.end("Successfully started a server");
   }
 });
-
+var ip = require("ip");
+console.dir ("ip "+  ip.address() );
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
