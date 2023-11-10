@@ -29,7 +29,7 @@ app.use((req, res, next) => {
     }
     next();
 });
-app.use(cors(corsOptions));
+app.use(cors());
 app.get("/api", (req,res) => {
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(
