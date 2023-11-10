@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(process.cwd() + "nodejs-express-mysql"));
 app.use((req, res, next) => {
   res.header("Content-Type", "application/json; charset=utf-8","x-access-token");
-  res.header("Access-Control-Allow-Origin", "http://localhost:4000");
+  //res.header("Access-Control-Allow-Origin", "http://localhost:4000");
   next();
 });
 app.use(cors(corsOptions));
