@@ -20,10 +20,15 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(process.cwd() + "nodejs-express-mysql"));
-app.use((req, res, next) => {
-  res.header("Content-Type", "application/json; charset=utf-8","x-access-token");
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
+pp.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    if (req.method === "OPTIONS") {
+        res.send(200);
+    }
+    next();
 });
 app.use(cors(corsOptions));
 app.get("/api", (req,res) => {
