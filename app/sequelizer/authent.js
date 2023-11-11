@@ -17,16 +17,14 @@ exports.authentification = (req, res, next) => {
                         "Login/mdp incorrect ou compte innexistant"
                 });
             }
-            console.log("req.body.password "+ req.body.password +"\n");
-            console.log("user.password"+ user.password +"\n");
-
             bcrypt.compare(req.body.password, user.password,  (err, result) => {
-
+                console.log(result);
                 if (err) {
                     return res.status(401).json({
                         message: "Auth failed"
                     });
                 }
+                console.log("result" + result);
                 if (result) {
                     const token = jwt.sign(
                         {
@@ -61,10 +59,13 @@ exports.register =  async (req, res) => {
       user = {
         username: req.body.username,
         email: req.body.email,
-        role: req.body.role
+        role: req.body.role,
+        password:  req.body.password
     };
-    const pass = await User.build(user);
-    await pass.update({password: bcrypt.hashSync(req.body.password, 10)});
-    await pass.save();
-    return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
+    bcrypt.hash(req.body.password, 10).then(hash =>{
+        user.password = hash ;
+        User.build(user).save();
+        return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
+    });
+
 }
