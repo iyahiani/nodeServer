@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize)=>{
         email: {type: DataTypes.STRING, allowNull: true},
         password: {type: DataTypes.STRING, allowNull: false},
         username: {type: DataTypes.STRING, allowNull: false},
-        roles: {type: DataTypes.STRING, allowNull: false},
+        roles: {type: DataTypes.STRING, allowNull: true},
 
     },{
         timestamps: false

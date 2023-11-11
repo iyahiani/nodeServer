@@ -24,9 +24,8 @@ exports.create = (req, res) => {
                 email: req.body.email,
                 role: req.body.role
             };
-            const hashedPassword = await bcrypt.hash(user.password, 10);
             const pass = await User.build(user);
-            await pass.update(hashedPassword);
+            await pass.update({password: bcrypt.hash(user.password, 10)});
             await pass.save();
             return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
         }

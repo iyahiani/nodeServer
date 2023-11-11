@@ -19,13 +19,13 @@ require('dotenv').config();
 app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(process.cwd() + "nodejs-express-mysql"));
 app.use((req, res, next) => {
-  res.header("Content-Type", "application/json; charset=utf-8","x-access-token");
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
 });
-app.use(cors(corsOptions));
+app.use(cors());
 app.get("/api", (req,res) => {
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(
@@ -39,37 +39,20 @@ app.post("/api/login", (req, res) => {
   authent.authentification(req, res)
 });
 //// Login
-app.get('/api/create', function (req, res) {
+app.get('/api/user:idUser', function (req, res) {
     // 👇️ if your HTML file is in the root directory (next to package.json)
-    res.sendFile(__dirname + '/ecom/dist');
+    //res.sendFile(__dirname + '/ecom/dist');
 });
 app.post("/api/create", (req, res) => {
-  req.getFile(__dirname + '/ecom/dist');
+//  req.getFile(__dirname + '/ecom/dist');
     if(req.body){
-    crudSeq.create(req,res);
+        authent.register(req, res)
   }
 });
 app.use(express.static(__dirname +'/ecom/dist'));
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;
 
-//test
-//const http = require("http");
-
-/*const server = http.createServer((req, res) => {
-  const urlPath = req.url;
-   if (urlPath === "/api") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(
-        JSON.stringify({
-          product_id: "xyz12u3",
-          product_name: "NginX injector",
-        })
-    );
-  } else {
-    res.end("Successfully started a server");
-  }
-});*/
 var ip = require("ip");
 console.dir ("ip "+  ip.address() );
 app.listen(PORT, () => {

@@ -20,7 +20,7 @@ exports.authentification = (req, res, next) => {
             console.log("req.body.password "+ req.body.password +"\n");
             console.log("user.password"+ user.password +"\n");
 
-            bcrypt.compare(user.password, req.body.password,  (err, result) => {
+            bcrypt.compare(req.body.password, user.password,  (err, result) => {
 
                 if (err) {
                     return res.status(401).json({
@@ -55,3 +55,16 @@ exports.authentification = (req, res, next) => {
             });
         });
 };
+
+exports.register =  async (req, res) => {
+    let user ={};
+      user = {
+        username: req.body.username,
+        email: req.body.email,
+        role: req.body.role
+    };
+    const pass = await User.build(user);
+    await pass.update({password: bcrypt.hashSync(req.body.password, 10)});
+    await pass.save();
+    return res.status(200).json({message: "l'utlisateur est enregistré avec succés"})
+}
