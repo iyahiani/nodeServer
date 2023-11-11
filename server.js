@@ -21,15 +21,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(process.cwd() + "nodejs-express-mysql"));
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    if (req.method === "OPTIONS") {
-        res.send(200);
-    }
-    next();
+  res.header("Content-Type", "application/json; charset=utf-8","x-access-token");
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
 });
-app.use(cors());
+app.use(cors(corsOptions));
 app.get("/api", (req,res) => {
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(
@@ -58,9 +54,9 @@ app.use(express.static(__dirname +'/ecom/dist'));
 const PORT = process.env.PORT || 4000;
 
 //test
-const http = require("http");
+//const http = require("http");
 
-const server = http.createServer((req, res) => {
+/*const server = http.createServer((req, res) => {
   const urlPath = req.url;
    if (urlPath === "/api") {
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -73,7 +69,7 @@ const server = http.createServer((req, res) => {
   } else {
     res.end("Successfully started a server");
   }
-});
+});*/
 var ip = require("ip");
 console.dir ("ip "+  ip.address() );
 app.listen(PORT, () => {
