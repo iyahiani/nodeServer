@@ -10,6 +10,7 @@ const corsOptions ={
   origin:['http://localhost:4200','http://109.106.244.164','https://ismaely.com'],
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
+
 };
 
 console.log(os.hostname());
