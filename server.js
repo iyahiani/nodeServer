@@ -49,7 +49,7 @@ app.post("/api/create", (req, res) => {
         authent.register(req, res)
   }
 });
-app.use(express.static(__dirname +'/ecom/dist'));
+//app.use(express.static(__dirname +'/ecom/dist'));
 // set port, listen for requests
 const PORT = process.env.PORT || 4000;
 
