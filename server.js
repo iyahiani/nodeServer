@@ -7,7 +7,7 @@ const cors = require("cors");
 const {static} = require("express");
 const os = require('os');
 const corsOptions ={
-  origin:['http://localhost:4001','http://localhost:4000'],
+  origin:['http://localhost:4200','http://109.106.244.164','https://ismaely.com'],
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 };
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
-app.use(cors());
+app.use(cors(corsOptions));
 app.get("/api", (req,res) => {
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(
