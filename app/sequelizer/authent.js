@@ -10,14 +10,34 @@ exports.authentification = (req, res, next) => {
         },
     })
         .then(user => {
-
             if (!user) {
                 return res.status(302).json({
                     message:
                         "Login/mdp incorrect ou compte innexistant"
                 });
             }
-            bcrypt.compare(req.body.password, user.password,  (err, result) => {
+            let compare = bcrypt.compare(user.password,req.body.password);
+            if (compare){
+                const token = jwt.sign(
+                    {
+                        email: user.email,
+                        idUser: user.idUser
+                    },
+                    `${process.env.SECRET_KEY}`
+                    ,
+                    {
+                        expiresIn: "1h"
+                    }
+                );
+                return res.status(200).json({
+                    message: "Auth granted, welcome!",
+                    token: token,
+                    roles:['ROLE_ADMIN','ROLE_MODERATOR'],
+                    login: user.login
+                });
+            } else return  res.status(304).JSON({message:"je ne retreouve pas ce batard"});
+
+           /* bcrypt.compare(req.body.password, user.password,  (err, result) => {
                 console.log(result);
                 if (err) {
                     return res.status(401).json({
@@ -26,25 +46,10 @@ exports.authentification = (req, res, next) => {
                 }
                 console.log("result" + result);
                 if (result) {
-                    const token = jwt.sign(
-                        {
-                            email: user.email,
-                            idUser: user.idUser
-                        },
-                        `${process.env.SECRET_KEY}`
-                        ,
-                        {
-                            expiresIn: "1h"
-                        }
-                    );
-                    return res.status(200).json({
-                        message: "Auth granted, welcome!",
-                        token: token,
-                        roles:['ROLE_ADMIN','ROLE_MODERATOR'],
-                        login: user.login
-                    });
+
+
                 } return res.status(300).json({message : err});
-            });
+            });*/
         })
         .catch(err => {
 
