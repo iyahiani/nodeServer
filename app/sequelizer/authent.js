@@ -69,3 +69,8 @@ exports.register =  async (req, res) => {
     });
 
 }
+exports.googleAuth = async (req, res) => {};
+exports.FBAuth = async (req, res) => {};
+exports.googleRegister = async (req, res) => {};
+exports.FBregister = async (req, res) => {};
+

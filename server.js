@@ -54,19 +54,21 @@ app.post("/api/create", (req, res) => {
 });
 // google Register
 app.post("/api/googleRegister", (req, res) => {
-    authent.authentification(req, res)
+    authent.googleRegister(req, res)
+});
+
+// google Authent
+app.post("/api/googleAuthent", (req, res) => {
+    authent.googleAuth(req, res)
 });
 // FB Register
 app.post("/api/FBregister", (req, res) => {
-    authent.authentification(req, res)
+    authent.FBregister(req, res)
 });
-// google Authent
-app.post("/api/googleAuthent", (req, res) => {
-    authent.authentification(req, res)
-});
+
 // FB Authent
 app.post("/api/FBAuthent", (req, res) => {
-    authent.authentification(req, res)
+    authent.FBAuth(req, res)
 });
 //app.use(express.static(__dirname +'/ecom/dist'));
 // set port, listen for requests
